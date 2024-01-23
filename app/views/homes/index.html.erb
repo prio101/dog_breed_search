@@ -1,0 +1,36 @@
+<%= render partial: 'partial/header' %>
+
+<div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-lg text-center">
+    <h1 class="text-2xl font-bold sm:text-3xl">Search Your favorite dog by Breed</h1>
+
+    <p class="mt-4 text-gray-500">
+      Search Via the Search Bar and Click the Button Below.
+      Write the favorite dog breed name.
+    </p>
+  </div>
+
+  <form action="" class="mx-auto mb-0 mt-8 max-w-md space-y-4">
+    <div>
+      <label for="search" class="sr-only">Search</label>
+
+      <div class="relative">
+        <input
+          type="text"
+          class="w-full rounded-lg border border-gray-400 p-4 pe-12 text-sm shadow-sm"
+          placeholder="Enter Dog Breed Name..."
+        />
+      </div>
+    </div>
+
+
+    <div class="flex items-center justify-between">
+      <button
+        type="submit"
+        class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+      >
+        Search
+      </button>
+    </div>
+  </form>
+</div>

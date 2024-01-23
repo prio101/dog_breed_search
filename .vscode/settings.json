@@ -1,0 +1,7 @@
+{
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.fontFamily": "Consolas, 'Courier New', monospace",
+    "editor.fontSize": 16,
+    "workbench.colorTheme": "Bearded Theme Arc"
+}

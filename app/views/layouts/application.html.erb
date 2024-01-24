@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>DogBreedSearch</title>
+    <title>Dog Breed Search</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,6 +12,9 @@
   </head>
 
   <body>
+    <% if flash[:error] %>
+      <%= render partial: 'partial/errors', locals: { error_message: flash[:error] } %>
+    <% end %>
     <%= yield %>
   </body>
 </html>

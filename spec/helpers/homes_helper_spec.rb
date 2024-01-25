@@ -11,5 +11,9 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe HomesHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#breed_name_formatted" do
+    it "returns the breed name formatted for url" do
+      expect(breed_name_formatted("German Shepherd")).to eq("german-shepherd")
+    end
+  end
 end

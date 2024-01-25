@@ -1,19 +1,21 @@
 class HomesController < ApplicationController
+  include HomesHelper
+
   before_action :validate_search_params, only: :search
 
   def index
   end
 
   def search
-    query_downcased = search_params[:query].downcase
+    breed_name_formatted = breed_name_formatted(search_params[:query])
 
-    response = HTTParty.get("https://dog.ceo/api/breed/#{query_downcased}/images/random")
+    response = HTTParty.get("https://dog.ceo/api/breed/#{breed_name_formatted}/images/random")
 
     if success_response?(response["status"])
       @image = response['message']
       render turbo_stream: [ turbo_stream.update('image_container',
                                                  partial: 'partials/image', locals: { image_url: @image,
-                                                 breed_name: query_downcased  })]
+                                                 breed_name: breed_name_formatted  })]
     elsif error_response?(response["status"])
       render_error(response["message"])
     else
@@ -33,8 +35,10 @@ class HomesController < ApplicationController
 
   def render_error(error_message)
     render turbo_stream: turbo_stream.update('error_container',
-                                                partial: 'partials/errors',
-                                                locals: { error_message: error_message })
+                                              partial: 'partials/errors',
+                                              locals: {
+                                                  error_message: error_message
+                                              })
   end
 
   def success_response?(status)

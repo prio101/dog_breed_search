@@ -1,0 +1,31 @@
+<%= render partial: 'partials/header' %>
+
+<div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-lg text-center">
+    <h1 class="text-2xl font-bold sm:text-3xl">Search Your favorite dog by Breed</h1>
+
+    <p class="mt-4 text-gray-500">
+      Search Via the Search Bar and Click the Button Below.
+      Write the favorite dog breed name.
+    </p>
+  </div>
+
+  <%= form_with(url: search_homes_path,  method: :get, data: { controller: "turbo-form" }, class: 'mx-auto mb-0 mt-8 max-w-md space-y-4') do |form| %>
+    <div>
+      <%= form.label 'search[query', class: 'sr-only' %>
+      <div class="relative">
+        <%= form.text_field 'search[query]',
+            placeholder: 'Enter Dog Breed Name...',
+            class: 'w-full rounded-lg border border-gray-400 p-4 pe-12 text-sm shadow-sm' %>
+      </div>
+    </div>
+
+
+    <div class="flex items-center justify-between cursor-pointer">
+      <%= form.submit 'Search', data: { turbo_frame: 'image_container', remote: true },
+          class: 'cursor-pointer inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white' %>
+    </div>
+  <% end %>
+</div>
+
+<%= turbo_frame_tag 'image_container' %>

@@ -12,9 +12,7 @@
   </head>
 
   <body>
-    <% if flash[:error] %>
-      <%= render partial: 'partial/errors', locals: { error_message: flash[:error] } %>
-    <% end %>
+    <%= turbo_frame_tag 'error_container' %>
     <%= yield %>
   </body>
 </html>

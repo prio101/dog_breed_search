@@ -6,16 +6,18 @@ class HomesController < ApplicationController
 
   def search
     query_downcased = search_params[:query].downcase
-    response = HTTParty.get("https://dog.ceo/api/breed/#{query_downcased}/images/random")
 
+    response = HTTParty.get("https://dog.ceo/api/breed/#{query_downcased}/images/random")
 
     if success_response?(response["status"])
       @image = response['message']
-
+      render turbo_stream: [ turbo_stream.update('image_container',
+                                                 partial: 'partials/image', locals: { image_url: @image,
+                                                 breed_name: query_downcased  })]
     elsif error_response?(response["status"])
-      flash[:error] = 'Please enter a valid dog breed...'
+      render_error(response["message"])
     else
-      flash[:error] = 'Internal server error...'
+      render_error('Internal server error...')
       redirect_to root_path
     end
   end
@@ -24,9 +26,15 @@ class HomesController < ApplicationController
 
   def validate_search_params
     if params[:search][:query].blank?
-      flash[:error] = 'Please enter a dog breed...'
-      return redirect_to root_path
+      render_error('Please enter a breed name to search for')
+      return
     end
+  end
+
+  def render_error(error_message)
+    render turbo_stream: turbo_stream.update('error_container',
+                                                partial: 'partials/errors',
+                                                locals: { error_message: error_message })
   end
 
   def success_response?(status)

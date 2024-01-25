@@ -1,4 +1,4 @@
-<%= render partial: 'partial/header' %>
+<%= render partial: 'partials/header' %>
 
 <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
   <div class="mx-auto max-w-lg text-center">
@@ -10,7 +10,7 @@
     </p>
   </div>
 
-  <%= form_with(url: 'homes/search',  method: :get, class: 'mx-auto mb-0 mt-8 max-w-md space-y-4' ) do |form| %>
+  <%= form_with(url: search_homes_path,  method: :get, data: { controller: "turbo-form" }, class: 'mx-auto mb-0 mt-8 max-w-md space-y-4') do |form| %>
     <div>
       <%= form.label 'search[query', class: 'sr-only' %>
       <div class="relative">
@@ -21,9 +21,11 @@
     </div>
 
 
-    <div class="flex items-center justify-between">
-      <%= form.submit 'Search',
-          class: 'inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white' %>
+    <div class="flex items-center justify-between cursor-pointer">
+      <%= form.submit 'Search', data: { turbo_frame: 'image_container', remote: true },
+          class: 'cursor-pointer inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white' %>
     </div>
   <% end %>
 </div>
+
+<%= turbo_frame_tag 'image_container' %>
